@@ -119,3 +119,4 @@ pytest
 - Work on feature branches; merge to `main` via pull requests.
 - Clear, present-tense commit messages describing the change.
 - Decide as a team whether to keep the `Co-authored-by: Claude` trailer on AI-assisted commits.
+   
