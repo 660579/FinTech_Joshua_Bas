@@ -13,7 +13,7 @@ Do **not** start with API routes. Build and test each service independently befo
 ### Pipeline
 
 1. **Ingestion** — parse a CSV or JSON file into structured `Invoice` and `LineItem` models.
-2. **Classification** — the core, where most of the grade lives:
+2. **Classification** — the core of the pipeline:
    - embed each line item description with `sentence-transformers`;
    - match against precomputed EU Taxonomy category embeddings using cosine similarity;
    - call the Anthropic API via RAG: retrieve the matched category definition and use it as context to generate a one-sentence rationale grounded in regulation, not model memory.
@@ -87,4 +87,4 @@ scripts/
 
 - All data is synthetic — no real PSD2, bank, or accounting software connections.
 - Business logic lives in `services/`, never in route handlers. Routes just call services.
-- Comment the *why* on all scoring weight choices — graders read this.
+- Comment the *why* on all scoring weight choices.

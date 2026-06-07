@@ -1,0 +1,13 @@
+.env
+.venv/
+.venv-*/
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+
+# Generated at runtime — do not commit
+backend/data/vectorstore/taxonomy_index.npy
+backend/data/vectorstore/categories.json
+backend/data/reports/
+backend/data/demo_invoices.csv
