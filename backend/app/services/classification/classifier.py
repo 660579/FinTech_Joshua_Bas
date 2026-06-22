@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from concurrent.futures import Future, ThreadPoolExecutor
 from pathlib import Path
 
 import numpy as np
@@ -26,39 +27,51 @@ def classify_line_items(line_items: list[LineItem]) -> list[ClassifiedLineItem]:
     """Orchestrate embed → match → RAG for a batch of line items.
 
     All descriptions are embedded in a single model call for efficiency.
-    RAG is called only for items that clear the similarity threshold —
-    unclassified items are returned with taxonomy fields left as None.
+    RAG calls are dispatched concurrently via ThreadPoolExecutor — only for
+    items that clear the similarity threshold. Unclassified items are returned
+    with taxonomy fields left as None.
     """
     if not line_items:
         return []
 
     index, categories = _get_index()
 
-    descriptions = [item.description for item in line_items]
-    embeddings = embed_texts(descriptions)  # (N, D) normalised
+    embeddings = embed_texts([item.description for item in line_items])  # (N, D) normalised
 
-    results: list[ClassifiedLineItem] = []
-    for item, embedding in zip(line_items, embeddings):
+    results: list[ClassifiedLineItem | None] = [None] * len(line_items)
+    needs_rag: list[tuple[int, LineItem, dict]] = []
+
+    for i, (item, embedding) in enumerate(zip(line_items, embeddings)):
         matches = cosine_match(embedding, index, categories, top_k=1)
-
         if matches:
-            match = matches[0]
-            rationale = build_rationale(
-                line_item_description=item.description,
-                taxonomy_category=match["name"],
-                category_definition=match["definition"],
-                qualifying_activities=match.get("qualifying", ""),
-            )
-            results.append(
-                ClassifiedLineItem(
-                    **item.model_dump(),
-                    taxonomy_category=match["name"],
-                    taxonomy_objective=match["objective"],
-                    similarity_score=match["similarity_score"],
-                    rationale=rationale,
-                )
-            )
+            needs_rag.append((i, item, matches[0]))
         else:
-            results.append(ClassifiedLineItem(**item.model_dump()))
+            results[i] = ClassifiedLineItem(**item.model_dump())
 
-    return results
+    if needs_rag:
+        with ThreadPoolExecutor(max_workers=8) as pool:
+            pending: list[tuple[int, LineItem, dict, Future[str]]] = [
+                (
+                    i,
+                    item,
+                    match,
+                    pool.submit(
+                        build_rationale,
+                        line_item_description=item.description,
+                        taxonomy_category=match["name"],
+                        category_definition=match["definition"],
+                        qualifying_activities=match.get("qualifying", ""),
+                    ),
+                )
+                for i, item, match in needs_rag
+            ]
+        for i, item, match, future in pending:
+            results[i] = ClassifiedLineItem(
+                **item.model_dump(),
+                taxonomy_category=match["name"],
+                taxonomy_objective=match["objective"],
+                similarity_score=match["similarity_score"],
+                rationale=future.result(),
+            )
+
+    return results  # type: ignore[return-value]  # all slots filled above

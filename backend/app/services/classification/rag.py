@@ -38,7 +38,7 @@ def build_rationale(
     )
 
     message = _get_client().messages.create(
-        model="claude-opus-4-8",
+        model="claude-haiku-4-5-20251001",
         max_tokens=150,
         messages=[{"role": "user", "content": prompt}],
     )
