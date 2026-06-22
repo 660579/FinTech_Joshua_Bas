@@ -1,0 +1,22 @@
+Category: Rainwater Harvesting and Sustainable Water Management
+EU Taxonomy Objective: Sustainable Use and Protection of Water and Marine Resources
+NACE Code Reference: E36.00 (Water collection, treatment and supply), F43.22 (Plumbing, heat and air-conditioning installation)
+
+Definition:
+Economic activities related to the collection, storage, and reuse of rainwater or greywater to reduce dependence on mains water supply and decrease stormwater runoff volumes. This includes the installation of rainwater harvesting systems for industrial, commercial, or agricultural use, as well as stormwater management infrastructure that supports groundwater recharge and reduces pressure on freshwater resources.
+
+Qualifying activities include:
+- Installation of rainwater collection and storage tanks for industrial or commercial use (process water, cleaning, irrigation, toilet flushing)
+- Installation of first-flush diverters, filters, and water quality treatment for collected rainwater
+- Installation of pumps, pressure vessels, and distribution pipework for harvested rainwater
+- Rooftop collection surface preparation and guttering systems for rainwater capture
+- Installation of stormwater attenuation tanks and permeable paving systems
+- Greywater recycling and reuse systems within buildings or industrial facilities
+- Water balance monitoring and metering systems for harvested water
+- Design and engineering services for rainwater harvesting and sustainable drainage systems
+
+Example invoice descriptions:
+rainwater harvesting, rainwater tank, water collection tank, rainwater storage, rainwater pump, greywater recycling, stormwater management, water reuse system, rainwater collection, water harvesting installation, sustainable drainage, SUDS, rainwater filter, water butt, cistern installation, stormwater attenuation, water recycling tank
+
+Do substantial harm considerations:
+Activities must not significantly harm other environmental objectives. Harvested rainwater systems must include appropriate filtration and, where used for potable or food-contact purposes, must meet drinking water quality standards. Systems must not cause soil contamination through inappropriate infiltration. Overflow provisions must prevent flooding of adjacent properties or watercourses. Materials in contact with collected water should be free of leachable hazardous substances.

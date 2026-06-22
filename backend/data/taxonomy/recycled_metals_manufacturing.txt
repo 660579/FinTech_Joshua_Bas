@@ -1,0 +1,21 @@
+Category: Manufacture of Recycled Metals
+EU Taxonomy Objective: Transition to a Circular Economy
+NACE Code Reference: C24.10 (Manufacture of basic iron and steel), C24.42 (Aluminium production), C38.32 (Recovery of sorted materials)
+
+Definition:
+Economic activities related to the manufacture, processing, or supply of metals produced from recycled or secondary raw materials, including recycled steel, aluminium, copper, and other non-ferrous metals. This includes secondary metallurgy, remelting, and the supply of recycled metal feedstock and semi-finished products such as sheet, extrusion, rod, and coil produced from post-consumer or post-industrial scrap.
+
+Qualifying activities include:
+- Supply of recycled steel products (sheet, coil, plate, bar, rod) produced from electric arc furnace (EAF) scrap-based routes
+- Supply of recycled aluminium extrusions, sheet, and cast products from secondary smelting
+- Collection, sorting, and processing of ferrous and non-ferrous metal scrap for remelting
+- Secondary aluminium smelting and refining from post-consumer or post-industrial scrap
+- Manufacture of semi-finished recycled metal products including extrusions, profiles, and rolled products
+- Quality certification and testing services for recycled metal products
+- Logistics and distribution of certified recycled metal feedstock
+
+Example invoice descriptions:
+recycled steel, secondary steel, EAF steel, recycled aluminium, secondary aluminium, recycled metal, scrap-based steel, post-consumer aluminium, recycled steel sheet, recycled aluminium extrusion, secondary raw material, circular aluminium, green steel, recycled copper, reclaimed metal, recycled alloy
+
+Do substantial harm considerations:
+Activities must not significantly harm other environmental objectives. Recycled metal processing should comply with industrial emissions regulations. Smelting operations must meet air quality standards for particulate matter and heavy metal emissions. Scrap sourcing should not contribute to illegal waste trade or import of hazardous materials. Wastewater from metal processing must be treated before discharge.

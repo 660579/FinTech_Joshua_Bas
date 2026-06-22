@@ -1,0 +1,22 @@
+Category: Water Treatment and Industrial Wastewater Management
+EU Taxonomy Objective: Sustainable Use and Protection of Water and Marine Resources
+NACE Code Reference: E37.00 (Sewerage), E38.11 (Collection of non-hazardous waste), F43.22 (Plumbing, heat and air-conditioning installation)
+
+Definition:
+Economic activities related to the treatment, purification, and management of industrial wastewater, process water, and cooling water to protect surface water and groundwater quality. This includes the installation and maintenance of on-site wastewater treatment systems, filtration equipment, chemical dosing systems, and water recycling infrastructure that reduces the environmental impact of industrial discharges.
+
+Qualifying activities include:
+- Installation and maintenance of industrial wastewater treatment systems including biological, chemical, and physical treatment stages
+- Replacement or servicing of filter media in wastewater treatment systems (membranes, activated carbon, sand filters)
+- Installation of chemical dosing and neutralisation systems for pH and heavy metal control
+- Installation and maintenance of cooling water treatment systems including dosing pumps and scale inhibition equipment
+- Water recycling and recirculation system installation to reduce freshwater abstraction
+- Monitoring and control systems for effluent quality (pH, turbidity, COD, heavy metals)
+- Design and engineering of industrial water treatment facilities
+- Servicing and calibration of water treatment equipment
+
+Example invoice descriptions:
+wastewater treatment, effluent treatment, filter media replacement, water treatment system, cooling water treatment, dosing pump installation, chemical dosing system, industrial water treatment, water purification, wastewater filter, effluent management, water recycling system, process water treatment, water treatment chemicals, membrane filtration, water quality monitoring
+
+Do substantial harm considerations:
+Activities must not significantly harm other environmental objectives. Treatment chemicals must not themselves introduce persistent pollutants or hazardous substances into treated effluent. Sludge and concentrate streams from treatment processes must be disposed of in accordance with waste management regulations. Activities should not increase energy consumption to a level that negates environmental benefits without off-setting through renewable sources.
