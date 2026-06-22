@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from backend.app.models.schemas import ClassifiedLineItem, ESGProfile, SectorBenchmark
+from backend.app.models.schemas import ClassifiedLineItem, ESGProfile, LineItem, SectorBenchmark
 
 EU_TAXONOMY_OBJECTIVES = [
     "Climate Change Mitigation",
@@ -11,114 +11,72 @@ EU_TAXONOMY_OBJECTIVES = [
     "Biodiversity & Ecosystems",
 ]
 
-# Weights reflect the relative importance of each objective in EU sustainable
-# finance policy and their typical visibility in SME procurement data.
-DIMENSION_WEIGHTS: dict[str, float] = {
-    # Mitigation dominates EU green finance (SFDR, CSRD, EU Green Bond Standard)
-    # and is the primary driver of lender GAR calculations.
-    "Climate Change Mitigation": 0.40,
-    # Circular economy is the most measurable procurement signal in invoice data:
-    # waste handling, recycled materials, refurbishment services.
-    "Circular Economy": 0.20,
-    # Pollution prevention captures operational footprint directly visible in
-    # invoices (treatment, abatement, hazardous-waste handling).
-    "Pollution Prevention & Control": 0.15,
-    "Water & Marine Resources": 0.10,
-    "Biodiversity & Ecosystems": 0.10,
-    # Adaptation investment is rarer in SME procurement than mitigation spend.
-    "Climate Change Adaptation": 0.05,
-}
-
-# Median green credit scores per NACE sector code, used for benchmarking.
-# WHY: relative performance matters to lenders — a score of 45 means different
-# things in construction (above median) vs. utilities (below median).
-# Source: approximated from EBA 2023 green asset ratio pilots and ESMA 2024
-# sustainable finance data; update before demo if better data is available.
-SECTOR_BENCHMARKS: dict[str, float] = {
-    # F — Construction: moderate green procurement driven by EU Renovation Wave
-    "F": 42.0,
-    # C — Manufacturing: significant brown spend on energy and raw materials
-    "C": 35.0,
-    # G — Wholesale/Retail: lower green penetration, improving via supply-chain pressure
-    "G": 28.0,
-    # H — Transportation/Storage: heavily fossil-fuel dependent, transition underway
-    "H": 22.0,
-    # D — Electricity/Gas supply: highest green investment share in the real economy
-    "D": 55.0,
-}
+# SECTOR_BENCHMARK for NACE C25 (fabricated metal products, small manufacturer).
+# Replace with audited sector-level data in production.
+SECTOR_BENCHMARK: float = 0.15
 
 
-def score_dimensions(classified_items: list[ClassifiedLineItem]) -> dict[str, float]:
-    """Return weighted green spend per EU Taxonomy objective, normalised to 0–100.
+def score(
+    all_items: list[LineItem],
+    classified_items: list[ClassifiedLineItem],
+    sme_id: str,
+    sector: str,
+) -> ESGProfile:
+    total_spend = sum(item.amount for item in all_items)
 
-    Denominator is total invoice spend (all items, classified or not) so that
-    unclassified brown spend (e.g. diesel) correctly dilutes the score.
-    Numerator uses amount × similarity_score to discount low-confidence matches.
-    """
-    total_spend = sum(item.amount for item in classified_items)
     if total_spend == 0:
-        return {obj: 0.0 for obj in EU_TAXONOMY_OBJECTIVES}
+        return ESGProfile(
+            sme_id=sme_id,
+            procurement_sustainability_score=0.0,
+            green_credit_score=0.0,
+            dimension_scores={obj: 0.0 for obj in EU_TAXONOMY_OBJECTIVES},
+            classified_line_items=classified_items,
+            sector_benchmark=SectorBenchmark(
+                sector=sector,
+                median_green_credit_score=SECTOR_BENCHMARK * 100,
+            ),
+        )
 
+    # dimension_scores: weighted spend per EU Taxonomy objective as a share of total spend.
+    # Normalising by total_spend (not green spend) ensures brown spend dilutes every dimension.
     objective_weighted_spend: dict[str, float] = {obj: 0.0 for obj in EU_TAXONOMY_OBJECTIVES}
     for item in classified_items:
-        if item.taxonomy_objective and item.similarity_score and item.taxonomy_objective in objective_weighted_spend:
-            objective_weighted_spend[item.taxonomy_objective] += item.amount * item.similarity_score
-
-    return {
-        obj: round((objective_weighted_spend[obj] / total_spend) * 100, 2)
+        if item.taxonomy_objective and item.taxonomy_objective in objective_weighted_spend:
+            objective_weighted_spend[item.taxonomy_objective] += (
+                item.amount * (item.similarity_score or 0.0)
+            )
+    dimension_scores = {
+        obj: round(objective_weighted_spend[obj] / total_spend, 4)
         for obj in EU_TAXONOMY_OBJECTIVES
     }
 
+    # Coverage: share of total spend that cleared the classification threshold at all.
+    # Secondary signal — a high fraction of classifiable spend is necessary but not sufficient.
+    coverage = sum(item.amount for item in classified_items) / total_spend
 
-def compute_green_credit_score(dimension_scores: dict[str, float], sector: str) -> float:
-    """Weighted aggregation of dimension scores into a 0–100 headline score."""
-    raw = sum(
-        dimension_scores.get(obj, 0.0) * weight
-        for obj, weight in DIMENSION_WEIGHTS.items()
-    )
-    # Clamp to [0, 100]: dimension scores are on this scale but floating-point
-    # arithmetic can nudge the weighted sum marginally outside bounds.
-    return round(max(0.0, min(100.0, raw)), 2)
-
-
-def build_esg_profile(
-    sme_id: str,
-    classified_items: list[ClassifiedLineItem],
-    sector: str,
-) -> ESGProfile:
-    """Assemble an ESGProfile from classified line items.
-
-    classified_items must contain ALL line items from the original invoices,
-    not just those that matched a taxonomy category. Unmatched items have
-    taxonomy_objective=None and contribute to the denominator (total spend)
-    without inflating green scores.
-    """
-    dimension_scores = score_dimensions(classified_items)
-    green_credit_score = compute_green_credit_score(dimension_scores, sector)
-
-    total_spend = sum(item.amount for item in classified_items)
-    green_weighted_spend = sum(
-        item.amount * item.similarity_score
-        for item in classified_items
-        if item.taxonomy_objective and item.similarity_score
-    )
-    procurement_sustainability_score = round(
-        (green_weighted_spend / total_spend * 100) if total_spend > 0 else 0.0,
-        2,
+    # Alignment: taxonomy-eligible spend weighted by classification confidence, normalised by
+    # total spend. Heaviest weight because it is the closest proxy to what banks need for GAR.
+    alignment = (
+        sum(item.amount * (item.similarity_score or 0.0) for item in classified_items)
+        / total_spend
     )
 
-    benchmark_score = SECTOR_BENCHMARKS.get(sector)
-    sector_benchmark = (
-        SectorBenchmark(sector=sector, median_green_credit_score=benchmark_score)
-        if benchmark_score is not None
-        else None
+    # Sector-relative position: compares the SME's alignment ratio against a sector peer benchmark.
+    # Capped at 1.0 so outperformers don't inflate the headline score beyond 100.
+    sector_position = min(1.0, alignment / SECTOR_BENCHMARK) if SECTOR_BENCHMARK > 0 else 0.0
+
+    green_credit_score = round(
+        (0.20 * coverage + 0.50 * alignment + 0.30 * sector_position) * 100, 2
     )
 
     return ESGProfile(
         sme_id=sme_id,
-        procurement_sustainability_score=procurement_sustainability_score,
+        procurement_sustainability_score=round(alignment * 100, 2),
         green_credit_score=green_credit_score,
         dimension_scores=dimension_scores,
         classified_line_items=classified_items,
-        sector_benchmark=sector_benchmark,
+        sector_benchmark=SectorBenchmark(
+            sector=sector,
+            median_green_credit_score=SECTOR_BENCHMARK * 100,
+        ),
     )

@@ -1,108 +1,66 @@
 from __future__ import annotations
 
-import pytest
-
-from backend.app.models.schemas import ClassifiedLineItem
-from backend.app.services.scoring.scorer import (
-    EU_TAXONOMY_OBJECTIVES,
-    build_esg_profile,
-    compute_green_credit_score,
-    score_dimensions,
-)
+from backend.app.models.schemas import ClassifiedLineItem, LineItem
+from backend.app.services.scoring.scorer import SECTOR_BENCHMARK, score
 
 
-def _classified(
-    description: str,
-    amount: float,
-    objective: str | None = None,
-    similarity: float | None = None,
-) -> ClassifiedLineItem:
+def _line_item(description: str, amount: float) -> LineItem:
+    return LineItem(supplier="Test Supplier", description=description, quantity=1.0, amount=amount)
+
+
+def _classified(description: str, amount: float, objective: str, similarity: float) -> ClassifiedLineItem:
     return ClassifiedLineItem(
         supplier="Test Supplier",
         description=description,
         quantity=1.0,
         amount=amount,
-        taxonomy_objective=objective,
         taxonomy_category=objective,
+        taxonomy_objective=objective,
         similarity_score=similarity,
     )
 
 
-# --- score_dimensions ---
-
-def test_dimension_scores_keys_match_objectives() -> None:
-    items = [_classified("solar panels", 1000.0, "Climate Change Mitigation", 0.9)]
-    scores = score_dimensions(items)
-    assert set(scores.keys()) == set(EU_TAXONOMY_OBJECTIVES)
-
-
-def test_dimension_scores_all_zero_for_no_spend() -> None:
-    scores = score_dimensions([])
-    assert all(v == 0.0 for v in scores.values())
-
-
-def test_dimension_scores_unclassified_item_dilutes_score() -> None:
-    """Diesel (unclassified) must reduce the green score, not be ignored."""
-    items = [
-        _classified("solar panel installation", 3000.0, "Climate Change Mitigation", 0.85),
-        _classified("diesel fuel 500L", 5000.0, objective=None, similarity=None),
-        _classified("LED lighting retrofit", 2000.0, "Climate Change Mitigation", 0.71),
+def test_all_classified_high_similarity_score_near_100() -> None:
+    """When all spend is classified at high confidence the GCS should approach 100."""
+    all_items = [
+        _line_item("solar panel installation", 500.0),
+        _line_item("LED lighting retrofit", 500.0),
     ]
-    scores = score_dimensions(items)
-    mitigation_score = scores["Climate Change Mitigation"]
-
-    # Green weighted spend = 3000*0.85 + 2000*0.71 = 2550 + 1420 = 3970
-    # Total spend = 10000
-    # Expected = 3970 / 10000 * 100 = 39.7
-    assert abs(mitigation_score - 39.7) < 0.1
-
-
-def test_dimension_scores_fully_green_below_100() -> None:
-    """Even 100% classified spend won't hit 100 because similarity < 1.0 scales it down."""
-    items = [_classified("solar panels", 1000.0, "Climate Change Mitigation", 0.9)]
-    scores = score_dimensions(items)
-    assert scores["Climate Change Mitigation"] == 90.0
-
-
-# --- compute_green_credit_score ---
-
-def test_green_credit_score_range() -> None:
-    items = [
-        _classified("solar panel installation", 3000.0, "Climate Change Mitigation", 0.85),
-        _classified("diesel fuel 500L", 5000.0),
-        _classified("LED lighting retrofit", 2000.0, "Circular Economy", 0.71),
+    classified_items = [
+        _classified("solar panel installation", 500.0, "Climate Change Mitigation", 0.95),
+        _classified("LED lighting retrofit", 500.0, "Climate Change Mitigation", 0.95),
     ]
-    scores = score_dimensions(items)
-    gcs = compute_green_credit_score(scores, sector="F")
-    assert 0.0 <= gcs <= 100.0
+    # coverage=1.0, alignment=0.95, sector_position=min(1, 0.95/0.15)=1.0
+    # GCS = (0.20*1.0 + 0.50*0.95 + 0.30*1.0) * 100 = 97.5
+    profile = score(all_items, classified_items, sme_id="sme-1", sector="C25")
+    assert profile.green_credit_score > 90.0
 
 
-def test_green_credit_score_zero_for_empty() -> None:
-    scores = {obj: 0.0 for obj in EU_TAXONOMY_OBJECTIVES}
-    assert compute_green_credit_score(scores, sector="C") == 0.0
-
-
-# --- build_esg_profile ---
-
-def test_build_esg_profile_known_sector_includes_benchmark() -> None:
-    items = [_classified("solar panels", 1000.0, "Climate Change Mitigation", 0.9)]
-    profile = build_esg_profile(sme_id="sme-1", classified_items=items, sector="F")
-    assert profile.sector_benchmark is not None
-    assert profile.sector_benchmark.sector == "F"
-
-
-def test_build_esg_profile_unknown_sector_no_benchmark() -> None:
-    items = [_classified("solar panels", 1000.0, "Climate Change Mitigation", 0.9)]
-    profile = build_esg_profile(sme_id="sme-1", classified_items=items, sector="UNKNOWN")
-    assert profile.sector_benchmark is None
-
-
-def test_build_esg_profile_procurement_score_uses_total_spend() -> None:
-    """procurement_sustainability_score must reflect total spend, not just classified spend."""
-    items = [
-        _classified("solar panels", 5000.0, "Climate Change Mitigation", 1.0),
-        _classified("diesel fuel", 5000.0),  # unclassified
+def test_no_classified_items_score_near_zero() -> None:
+    """When nothing clears the similarity threshold the GCS must be zero."""
+    all_items = [
+        _line_item("diesel fuel 500L", 800.0),
+        _line_item("conventional steel beams", 200.0),
     ]
-    profile = build_esg_profile(sme_id="sme-1", classified_items=items, sector="C")
-    # green_weighted_spend = 5000 * 1.0 = 5000; total = 10000 → 50.0
-    assert profile.procurement_sustainability_score == 50.0
+    # coverage=0, alignment=0, sector_position=0 → GCS=0.0
+    profile = score(all_items, classified_items=[], sme_id="sme-2", sector="C25")
+    assert profile.green_credit_score == 0.0
+    assert profile.procurement_sustainability_score == 0.0
+
+
+def test_mixed_spend_score_in_middle_range() -> None:
+    """Partial green spend with moderate similarity should land in the middle of the scale."""
+    all_items = [
+        _line_item("solar panel installation", 500.0),
+        _line_item("diesel fuel 500L", 1000.0),
+        _line_item("conventional packaging", 500.0),
+    ]
+    classified_items = [
+        _classified("solar panel installation", 500.0, "Climate Change Mitigation", 0.60),
+    ]
+    # total_spend=2000, coverage=500/2000=0.25, alignment=300/2000=0.15
+    # sector_position=min(1, 0.15/0.15)=1.0
+    # GCS = (0.20*0.25 + 0.50*0.15 + 0.30*1.0) * 100 = 42.5
+    profile = score(all_items, classified_items, sme_id="sme-3", sector="C25")
+    assert 30.0 < profile.green_credit_score < 60.0
+    assert abs(profile.green_credit_score - 42.5) < 0.1
