@@ -47,6 +47,7 @@ def classify_line_items(line_items: list[LineItem]) -> list[ClassifiedLineItem]:
                 line_item_description=item.description,
                 taxonomy_category=match["name"],
                 category_definition=match["definition"],
+                qualifying_activities=match.get("qualifying", ""),
             )
             results.append(
                 ClassifiedLineItem(

@@ -68,6 +68,7 @@ def _parse_taxonomy_file(path: Path) -> dict:
         "objective": meta.get("EU Taxonomy Objective", ""),
         "nace_code": meta.get("NACE Code Reference", ""),
         "definition": definition,
+        "qualifying": qualifying,
         "embed_text": embed_text,
     }
 
@@ -95,7 +96,7 @@ def build_index(
 
     # Store only the fields needed at runtime (drop embed_text to keep JSON small)
     runtime_categories = [
-        {k: v for k, v in c.items() if k != "embed_text"}
+        {k: v for k, v in c.items() if k not in {"embed_text"}}
         for c in categories
     ]
     (vectorstore_dir / "categories.json").write_text(
