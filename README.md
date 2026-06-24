@@ -2,7 +2,7 @@
 
 Turn SME **invoice data into ESG sustainability signals** and a lender-ready **Financing Passport**.
 
-> Course MVP for the FinTech: Business Models & Applications course (RSM, Erasmus University). Built on synthetic data — not production software.
+> Course MVP for the FinTech: Business Models & Applications course (RSM, Erasmus University). Built on synthetic data, not production software.
 
 ## What it does
 
@@ -29,40 +29,30 @@ invoice data → ingestion → classification (embed + match + RAG) → scoring 
                                             SME dashboard ◄────────────┘────────► Lender view
 ```
 
-- **Backend:** FastAPI (Python) — the pipeline above, exposed via SME and lender endpoints.
-- **Frontend:** Streamlit — SME dashboard and lender view.
+- **Backend:** FastAPI (Python) the pipeline above, exposed via SME and lender endpoints.
+- **Frontend:** Streamlit SME dashboard and lender view.
 - **Classification:** `sentence-transformers` embeddings + NumPy/Chroma similarity search over precomputed EU Taxonomy category embeddings.
 
 ## Getting started
 
 ### Requirements
-
 - Python 3.11+
-- See `requirements.txt` / `pyproject.toml` for dependencies
+- Dependencies listed in `frontend/requirements.txt`
 
-### Install & run
-
+### Run the app
 ```bash
-# clone
-git clone https://github.com/<your-username>/greenledger.git
-cd greenledger
+git clone https://github.com/660579/FinTech_Joshua_Bas.git
+cd FinTech_Joshua_Bas
 
-# environment
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt        # or: pip install -e .
+python3 -m venv .venv
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
 
-# generate synthetic demo data
-python scripts/generate_synthetic_invoices.py
-
-# precompute taxonomy embeddings
-python -m backend.app.services.classification.build_index
-
-# run backend
-uvicorn backend.app.main:app --reload
-
-# run frontend (separate terminal)
+pip install -r frontend/requirements.txt
 streamlit run frontend/app.py
 ```
+
+The app opens at http://localhost:8501. The frontend currently runs on
+synthetic mock data; the backend pipeline is in progress.
 
 ### Demo data
 
@@ -83,7 +73,7 @@ Developed in VS Code using **Claude Code**. Agent behaviour and project conventi
 
 ## License
 
-Released under the MIT License — see `LICENSE`. Third-party libraries remain under their own licenses.
+Released under the MIT License, see `LICENSE`. Third-party libraries remain under their own licenses.
 
 ## Authors
 
