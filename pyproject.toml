@@ -1,17 +1,20 @@
-[build-system]
-requires = ["setuptools>=68"]
-build-backend = "setuptools.backends.legacy:build"
-
 [project]
 name = "greenledger"
 version = "0.1.0"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "sentence-transformers",
+    "numpy",
+    "pydantic",
+    "python-dotenv",
+    "httpx",
+]
 
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["backend*"]
+[project.optional-dependencies]
+dev = ["pytest", "httpx"]
 
-[tool.pytest.ini_options]
-pythonpath = ["."]
-testpaths = ["backend/tests"]
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.backends.legacy:build"
