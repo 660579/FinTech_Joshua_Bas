@@ -22,8 +22,12 @@ def build_rationale(
 
     Both the category definition and qualifying activities are passed as context so
     the rationale is derived from regulation rather than the model's parametric memory.
-    Uses ANTHROPIC_API_KEY from the environment.
+    Uses ANTHROPIC_API_KEY from the environment. Returns a stub when key is absent.
     """
+    import os
+    if not os.environ.get("ANTHROPIC_API_KEY"):
+        return f'"{line_item_description}" aligns with {taxonomy_category} per EU Taxonomy criteria.'
+
     qualifying_section = (
         f"\nQualifying activities:\n{qualifying_activities}\n" if qualifying_activities else ""
     )
