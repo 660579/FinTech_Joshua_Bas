@@ -1,3 +1,9 @@
+"""Sentence-transformer embedding wrapper with lazy model loading.
+
+sentence_transformers is imported inside load_model() so that modules which
+import this file don't pay the model-load cost at import time — only when the
+first embed_texts() call is made.
+"""
 from __future__ import annotations
 
 import numpy as np

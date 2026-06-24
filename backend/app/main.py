@@ -1,3 +1,8 @@
+"""GreenLedger FastAPI application entry point.
+
+load_dotenv() is called before any other import so that GROQ_API_KEY and other
+env vars are available to modules that read them at import time.
+"""
 from dotenv import load_dotenv
 load_dotenv()
 

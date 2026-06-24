@@ -1,3 +1,4 @@
+"""Lender-side API routes: retrieve a shared Financing Passport and record a lending decision."""
 from __future__ import annotations
 
 from fastapi import APIRouter, HTTPException

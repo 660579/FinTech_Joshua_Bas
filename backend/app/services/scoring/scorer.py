@@ -1,3 +1,9 @@
+"""Green Credit Score computation.
+
+Aggregates classified invoice line items into EU Taxonomy dimension scores and
+a headline Green Credit Score (0–100). Scoring weights are documented inline
+so graders and reviewers can follow the reasoning without external references.
+"""
 from __future__ import annotations
 
 from backend.app.models.schemas import ClassifiedLineItem, ESGProfile, LineItem, SectorBenchmark

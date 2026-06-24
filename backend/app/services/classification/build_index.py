@@ -9,6 +9,8 @@ import json
 import re
 from pathlib import Path
 
+import numpy as np
+
 from backend.app.services.classification.embedder import embed_texts
 
 
@@ -91,7 +93,6 @@ def build_index(
 
     vectorstore_dir.mkdir(parents=True, exist_ok=True)
 
-    import numpy as np
     np.save(vectorstore_dir / "taxonomy_index.npy", index)
 
     # Store only the fields needed at runtime (drop embed_text to keep JSON small)

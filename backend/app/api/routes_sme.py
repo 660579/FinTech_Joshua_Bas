@@ -1,5 +1,7 @@
+"""SME-side API routes: invoice upload, ESG scan, and Financing Passport creation."""
 from __future__ import annotations
 
+import os
 import tempfile
 from pathlib import Path
 from uuid import uuid4
@@ -26,7 +28,10 @@ async def scan_invoices(file: UploadFile = File(...)) -> ESGProfile:
         tmp.write(contents)
         tmp_path = tmp.name
 
-    invoices = parser.parse_invoices(tmp_path)
+    try:
+        invoices = parser.parse_invoices(tmp_path)
+    finally:
+        os.unlink(tmp_path)
 
     all_items = [item for invoice in invoices for item in invoice.line_items]
     all_classified = classifier.classify_line_items(all_items)
@@ -37,7 +42,7 @@ async def scan_invoices(file: UploadFile = File(...)) -> ESGProfile:
         all_items=all_items,
         classified_items=classified_items,
         sme_id=sme_id,
-        sector="C25",
+        sector="C25",  # NACE C25 (fabricated metal products) — demo default; see scorer.SECTOR_BENCHMARK
     )
     return profile
 

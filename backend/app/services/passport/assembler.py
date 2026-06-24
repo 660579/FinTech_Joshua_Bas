@@ -1,3 +1,4 @@
+"""Financing Passport assembly: combines an ESGProfile with derived financial-health metrics."""
 from __future__ import annotations
 
 import uuid
@@ -5,7 +6,9 @@ from datetime import datetime, timezone
 
 from backend.app.models.schemas import ESGProfile, Passport
 
-# In-memory passport store: passport_id → Passport
+# Module-local store used by get_passport() and the unit tests.
+# The route layer (api/store.passport_store) holds the same passports for
+# cross-request access via HTTP — both are populated on every assemble_passport() call.
 _passport_store: dict[str, Passport] = {}
 
 
