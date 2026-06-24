@@ -16,7 +16,7 @@ Do **not** start with API routes. Build and test each service independently befo
 2. **Classification** — the core of the pipeline:
    - embed each line item description with `sentence-transformers`;
    - match against precomputed EU Taxonomy category embeddings using cosine similarity;
-   - call the Anthropic API via RAG: retrieve the matched category definition and use it as context to generate a one-sentence rationale grounded in regulation, not model memory.
+   - call the Groq API via RAG: retrieve the matched category definition and use it as context to generate a one-sentence rationale grounded in regulation, not model memory.
 3. **Scoring** — aggregate classified line items into sustainability dimension scores and a headline **Green Credit Score** (0–100) with sector benchmarking. Weights are rule-based and commented for auditability.
 4. **Passport** — assemble the Financing Passport: ESG profile + Green Credit Score, stored in an in-memory dict under a UUID passport ID.
 5. **Report** — serialise the Passport into a VSME-structured JSON file the SME can share.
@@ -110,7 +110,7 @@ Do substantial harm considerations:
 
 ## Configuration (must be done manually)
 
-- **Anthropic API key** — create a `.env` file in the project root (git-ignored) with `ANTHROPIC_API_KEY=your_key_here`. Get the key from console.anthropic.com. Also create `.env.example` with the same keys but empty values — this goes in the repo.
+- **Groq API key** — create a `.env` file in the project root (git-ignored) with `GROQ_API_KEY=your_key_here`. Get the key from console.groq.com. Also create `.env.example` with the same keys but empty values — this goes in the repo.
 - **Sector benchmarks** — the hardcoded benchmark scores in `scorer.py` must be defensible. Decide which NACE sector the demo SME operates in, pick a realistic benchmark score, and be ready to justify it in the video.
 - **Synthetic invoice content** — review what `generate_synthetic_invoices.py` produces before the demo. Line item descriptions must be specific enough to classify well (e.g. "solar panel installation" or "diesel fuel 500L"), not generic (e.g. "goods purchased").
 
