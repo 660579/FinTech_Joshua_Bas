@@ -1,0 +1,21 @@
+Category: Energy-Efficient Lighting
+EU Taxonomy Objective: Climate Change Mitigation
+NACE Code Reference: C27.40 (Manufacture of electric lighting equipment), F43.21 (Electrical installation activities)
+
+Definition:
+Economic activities related to the installation, manufacture, or retrofitting of energy-efficient lighting systems, including LED technology and smart lighting controls, that achieve substantial reductions in electricity consumption compared to conventional lighting. This includes retrofitting existing industrial, commercial, or public lighting infrastructure with high-efficiency alternatives.
+
+Qualifying activities include:
+- Replacement of conventional fluorescent, halogen, or incandescent luminaires with LED equivalents
+- Installation of LED high-bay luminaires in industrial or warehouse settings
+- Retrofitting of production halls, logistics facilities, or commercial premises with LED lighting
+- Installation of lighting control systems including motion sensors, daylight sensors, and dimmers
+- Supply and manufacture of LED modules, drivers, fixtures, and smart lighting components
+- Design and engineering services for energy-efficient lighting projects
+- Post-installation commissioning and energy performance verification
+
+Example invoice descriptions:
+LED high-bay lighting, LED retrofit, LED luminaire, LED lighting upgrade, energy-efficient lighting, LED bay light, LED tube replacement, lighting control system, motion sensor lighting, daylight harvesting, smart lighting, LED fixture installation, high-efficiency lighting, LED flood light, linear LED, LED panel
+
+Do substantial harm considerations:
+Activities must not significantly harm other environmental objectives. LED lighting systems should comply with RoHS (Restriction of Hazardous Substances) directives. Waste LED components, including drivers containing capacitors and PCBs, must be disposed of through certified WEEE (Waste Electrical and Electronic Equipment) collection schemes. Activities should not increase light pollution in ecologically sensitive areas.

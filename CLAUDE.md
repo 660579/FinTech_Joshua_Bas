@@ -61,6 +61,7 @@ scripts/generate_synthetic_invoices.py   synthetic demo data
 - Python 3.11+
 - FastAPI (backend), Streamlit (frontend — see open decisions)
 - `sentence-transformers` for embeddings, NumPy/Chroma for similarity search
+- Groq API (`llama-3.3-70b-versatile`) for RAG rationale generation
 - pydantic for schemas, pytest for tests
 
 ## Commands
@@ -119,3 +120,4 @@ pytest
 - Work on feature branches; merge to `main` via pull requests.
 - Clear, present-tense commit messages describing the change.
 - Decide as a team whether to keep the `Co-authored-by: Claude` trailer on AI-assisted commits.
+   

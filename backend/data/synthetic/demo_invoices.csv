@@ -1,0 +1,25 @@
+invoice_id,sme_id,date,supplier,description,quantity,unit,amount
+INV-2025-001,sme-nace-c25-demo,2025-01-15,EcoVolt Europe SA,Rooftop solar panel installation 4 kWp with inverter,1.0,installation,12400.0
+INV-2025-001,sme-nace-c25-demo,2025-01-15,SolarTech NL BV,LED high-bay lighting retrofit for production hall (40 units),40.0,unit,3200.0
+INV-2025-002,sme-nace-c25-demo,2025-02-03,EVBox Charging Solutions,EV charging station installation 22 kW Type 2 AC (2 points),2.0,unit,4800.0
+INV-2025-002,sme-nace-c25-demo,2025-02-03,Allego Business BV,Electrical grid connection upgrade for EV charging infrastructure,1.0,installation,1850.0
+INV-2025-003,sme-nace-c25-demo,2025-02-20,ArcelorMittal Recycled Materials,Recycled steel sheet S235 2 mm thickness 500 kg,500.0,kg,620.0
+INV-2025-003,sme-nace-c25-demo,2025-02-20,ArcelorMittal Recycled Materials,Recycled aluminium extrusion alloy 6063 200 kg,200.0,kg,490.0
+INV-2025-004,sme-nace-c25-demo,2025-03-05,Total Energies NL,Diesel fuel B7 500 L for forklift fleet,500.0,L,780.0
+INV-2025-004,sme-nace-c25-demo,2025-03-05,Energie Depot Rotterdam,LPG propane 250 kg for overhead crane heating system,250.0,kg,310.0
+INV-2025-005,sme-nace-c25-demo,2025-03-18,Thermcraft Industrial NL,Coal-fired heat treatment furnace annual service and calibration,1.0,service,2200.0
+INV-2025-005,sme-nace-c25-demo,2025-03-18,Thermcraft Industrial NL,Furnace refractory lining replacement (coal-fired batch annealing),1.0,service,5600.0
+INV-2025-006,sme-nace-c25-demo,2025-04-02,Trumpf Benelux BV,CNC milling machine scheduled preventive maintenance (4 000 h service),1.0,service,1450.0
+INV-2025-006,sme-nace-c25-demo,2025-04-02,Haas CNC Solutions NL,Carbide end-mill cutting tool set replacement 20-piece,20.0,unit,860.0
+INV-2025-007,sme-nace-c25-demo,2025-04-14,Staples Business NL,Office paper A4 80 g/m² 5 reams,5.0,ream,45.0
+INV-2025-007,sme-nace-c25-demo,2025-04-14,Staples Business NL,"General office supplies (pens, folders, toner cartridges)",1.0,lot,210.0
+INV-2025-008,sme-nace-c25-demo,2025-05-07,DB Schenker NL,Road freight transport services — outbound finished goods 3 pallets,3.0,pallet,390.0
+INV-2025-008,sme-nace-c25-demo,2025-05-07,DB Schenker NL,Inbound raw material transport — steel coil delivery 2 t,2.0,tonne,280.0
+INV-2025-009,sme-nace-c25-demo,2025-05-22,Veolia Water Technologies,Industrial wastewater treatment system filter media replacement,1.0,service,1100.0
+INV-2025-009,sme-nace-c25-demo,2025-05-22,Veolia Water Technologies,Cooling water treatment chemical dosing pump installation,1.0,installation,2300.0
+INV-2025-010,sme-nace-c25-demo,2025-06-10,EcoVolt Europe SA,Building insulation upgrade — mineral wool 150 mm production hall roof,320.0,m2,9600.0
+INV-2025-010,sme-nace-c25-demo,2025-06-10,DMG Mori Service BV,Variable-frequency drive (VFD) retrofit for main compressor motor 15 kW,1.0,unit,3400.0
+INV-2025-011,sme-nace-c25-demo,2025-06-25,Kuehne+Nagel BV,Stretch film pallet wrapping consumables 6 rolls,6.0,roll,180.0
+INV-2025-011,sme-nace-c25-demo,2025-06-25,Office Depot Europe BV,"Safety PPE kit — hard hats, gloves, safety glasses (10 sets)",10.0,set,520.0
+INV-2025-012,sme-nace-c25-demo,2025-07-08,Thermcraft Industrial NL,Natural gas connection inspection and burner efficiency tuning,1.0,service,750.0
+INV-2025-012,sme-nace-c25-demo,2025-07-08,Pentair Industrial Solutions BV,Rainwater harvesting tank installation 5 000 L with pump,1.0,installation,4100.0

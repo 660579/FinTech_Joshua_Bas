@@ -1,0 +1,22 @@
+Category: Energy Efficiency Improvements in Industrial Processes
+EU Taxonomy Objective: Climate Change Mitigation
+NACE Code Reference: C28.11 (Manufacture of engines and turbines), C28.12 (Manufacture of fluid power equipment), F43.21 (Electrical installation activities)
+
+Definition:
+Economic activities related to the installation of energy-efficient equipment, drive systems, and control technologies in industrial settings that achieve measurable reductions in electricity or energy consumption. This includes retrofitting of electric motor drive systems with variable-frequency drives (VFDs), installation of high-efficiency motors, and deployment of energy management and monitoring systems in manufacturing and processing facilities.
+
+Qualifying activities include:
+- Retrofit of existing fixed-speed electric motor drives with variable-frequency drives (VFDs) / variable-speed drives (VSDs) for compressors, pumps, fans, and conveyors
+- Replacement of IE1/IE2 motors with IE3/IE4 high-efficiency electric motors
+- Installation of energy monitoring and metering systems for industrial processes
+- Compressed air system efficiency upgrades including leak detection and pressure optimisation
+- Installation of heat recovery systems on industrial processes and HVAC
+- Upgrade of industrial HVAC and ventilation systems to high-efficiency units
+- Replacement of energy-inefficient industrial heating, drying, or processing equipment
+- Energy audits and measurement and verification (M&V) services for industrial facilities
+
+Example invoice descriptions:
+variable frequency drive, VFD, variable speed drive, VSD, motor drive retrofit, energy efficiency retrofit, high-efficiency motor, IE3 motor, IE4 motor, compressor VFD, pump VFD, fan drive, energy management system, industrial energy efficiency, compressed air efficiency, heat recovery, motor upgrade, drive installation, frequency inverter
+
+Do substantial harm considerations:
+Activities must not significantly harm other environmental objectives. Disposal of replaced equipment must follow WEEE regulations. Retrofitted systems must not increase noise pollution or introduce refrigerants with high global warming potential. Energy savings claims should be verified through M&V protocols (e.g. IPMVP) rather than theoretical calculations alone.

@@ -1,0 +1,22 @@
+Category: Renovation of Existing Buildings
+EU Taxonomy Objective: Climate Change Mitigation
+NACE Code Reference: F41.20 (Construction of residential and non-residential buildings), F43.29 (Other construction installation), F43.99 (Other specialised construction activities)
+
+Definition:
+Economic activities related to the energy performance renovation of existing buildings, including industrial facilities, production halls, warehouses, and commercial premises. This encompasses thermal insulation improvements to the building envelope (roof, walls, floor, windows), which reduce heating and cooling energy demand. Qualifying renovations must achieve a meaningful reduction in primary energy demand or bring the building toward near-zero energy building (NZEB) standards.
+
+Qualifying activities include:
+- Installation of thermal insulation on building roofs, including mineral wool, stone wool, glass wool, PIR, and EPS systems
+- External wall insulation systems (ETICS/EIFS) and cavity wall insulation
+- Floor and underfloor insulation installation
+- Replacement of windows and external doors with high-performance double- or triple-glazed units
+- Installation of vapour barriers, airtightness membranes, and thermal bridging solutions
+- Renovation works that achieve at least 30% reduction in primary energy demand
+- Energy audits and building performance assessments preceding renovation
+- Supply of certified insulation materials and building envelope components
+
+Example invoice descriptions:
+building insulation, roof insulation, mineral wool insulation, wall insulation, insulation upgrade, thermal insulation, energy renovation, building envelope, insulation retrofit, stone wool, glass wool, PIR insulation, EPS insulation, production hall insulation, roof thermal upgrade, insulation installation, ETICS, facade insulation
+
+Do substantial harm considerations:
+Activities must not significantly harm other environmental objectives. Insulation materials must not contain substances of very high concern (SVHCs) as listed under REACH. End-of-life insulation waste must be managed through appropriate recycling or disposal channels. Activities should not compromise indoor air quality or introduce persistent organic pollutants.

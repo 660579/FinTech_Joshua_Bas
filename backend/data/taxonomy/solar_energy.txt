@@ -1,0 +1,22 @@
+Category: Solar Energy Generation
+EU Taxonomy Objective: Climate Change Mitigation
+NACE Code Reference: D35.11 (Electricity generation)
+
+Definition:
+Economic activities related to the generation of electricity or heat from solar radiation using photovoltaic (PV) panels or concentrated solar power (CSP) systems and solar thermal collectors. This includes the manufacture, installation, maintenance, and operation of solar energy systems.
+
+Qualifying activities include:
+- Installation and commissioning of rooftop or ground-mounted solar photovoltaic panels
+- Supply, manufacture, or distribution of solar PV modules, inverters, and mounting systems
+- Solar thermal collector installation for water or space heating
+- Concentrated solar power (CSP) plant construction and operation
+- Battery storage systems paired with solar generation
+- Solar energy system monitoring, maintenance, and repair services
+- Engineering and design services for solar energy projects
+- Grid connection work for solar installations
+
+Example invoice descriptions:
+solar panels, PV modules, photovoltaic installation, solar inverter, solar mounting system, rooftop solar, solar thermal, solar water heater, CSP plant, solar array, solar farm, bifacial panels, monocrystalline panels, solar racking, net metering, BIPV (building-integrated photovoltaics)
+
+Do substantial harm considerations:
+Activities must not significantly harm other environmental objectives. Solar installations should include provisions for land-use impact mitigation, panel end-of-life recycling, and avoidance of protected habitats.

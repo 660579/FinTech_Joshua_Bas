@@ -1,0 +1,22 @@
+Category: Infrastructure for Electric Mobility
+EU Taxonomy Objective: Climate Change Mitigation
+NACE Code Reference: F43.21 (Electrical installation activities), G45.20 (Maintenance and repair of motor vehicles)
+
+Definition:
+Economic activities related to the installation, operation, and maintenance of electric vehicle (EV) charging infrastructure, including AC and DC charging points for passenger vehicles, light commercial vehicles, and heavy-duty transport. This includes grid connection upgrades required to support charging infrastructure and associated electrical works.
+
+Qualifying activities include:
+- Installation of AC charging points (Type 2, up to 22 kW) for workplace, fleet, or public use
+- Installation of DC fast charging stations (CCS, CHAdeMO, 50 kW and above)
+- Electrical grid connection upgrades and cable installations to support EV charging loads
+- Installation of smart charging management systems and load-balancing equipment
+- Supply and manufacture of EV charging equipment, connectors, and control units
+- Installation of bidirectional (V2G) charging equipment
+- Engineering, design, and permitting services for EV charging projects
+- Maintenance and repair of existing EV charging infrastructure
+
+Example invoice descriptions:
+EV charging station, EV charger installation, electric vehicle charging point, Type 2 AC charger, DC fast charger, CCS charger, CHAdeMO charger, wallbox installation, charging infrastructure, EV grid connection, charging management system, smart EV charging, vehicle charging point, e-mobility infrastructure, EV supply equipment, EVSE installation
+
+Do substantial harm considerations:
+Activities must not significantly harm other environmental objectives. Grid connection upgrades should not lock in fossil fuel generation capacity. Charging infrastructure siting should avoid protected habitats and areas of ecological sensitivity. End-of-life management of charging equipment must follow WEEE regulations.
