@@ -1,14 +1,14 @@
 from __future__ import annotations
 
-import anthropic
+import groq
 
-_client: anthropic.Anthropic | None = None
+_client: groq.Groq | None = None
 
 
-def _get_client() -> anthropic.Anthropic:
+def _get_client() -> groq.Groq:
     global _client
     if _client is None:
-        _client = anthropic.Anthropic()
+        _client = groq.Groq()
     return _client
 
 
@@ -22,10 +22,10 @@ def build_rationale(
 
     Both the category definition and qualifying activities are passed as context so
     the rationale is derived from regulation rather than the model's parametric memory.
-    Uses ANTHROPIC_API_KEY from the environment. Returns a stub when key is absent.
+    Uses GROQ_API_KEY from the environment. Returns a stub when key is absent.
     """
     import os
-    if not os.environ.get("ANTHROPIC_API_KEY"):
+    if not os.environ.get("GROQ_API_KEY"):
         return f'"{line_item_description}" aligns with {taxonomy_category} per EU Taxonomy criteria.'
 
     qualifying_section = (
@@ -41,10 +41,10 @@ def build_rationale(
         "category above, citing specific language from the definition or qualifying activities."
     )
 
-    message = _get_client().messages.create(
-        model="claude-haiku-4-5-20251001",
+    completion = _get_client().chat.completions.create(
+        model="llama-3.3-70b-versatile",
         max_tokens=150,
         messages=[{"role": "user", "content": prompt}],
     )
 
-    return message.content[0].text.strip()
+    return completion.choices[0].message.content.strip()
