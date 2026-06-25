@@ -36,7 +36,7 @@ UNRELATED_ITEM = LineItem(
 
 
 def _fake_embed(texts: list[str]) -> np.ndarray:
-    # Return deterministic unit vectors — shape (N, 4)
+    # Return deterministic unit vectors, shape (N, 4)
     n = len(texts)
     vecs = np.ones((n, 4), dtype=np.float32)
     norms = np.linalg.norm(vecs, axis=1, keepdims=True)
@@ -91,7 +91,7 @@ def test_classify_unmatched_item_leaves_taxonomy_fields_none() -> None:
         ),
         patch(
             "backend.app.services.classification.classifier.cosine_match",
-            return_value=[],  # below threshold — no match
+            return_value=[],  # below threshold, no match
         ),
         patch(
             "backend.app.services.classification.classifier.build_rationale",

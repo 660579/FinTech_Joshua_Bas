@@ -1,6 +1,8 @@
 """
-Stub service responses shaped like the backend schemas.
-Replace these calls with real API calls once the backend endpoints are live.
+Stub service responses shaped exactly like backend.app.models.schemas (ESGProfile,
+Passport) and the real output of services/scoring/scorer.py and
+services/passport/assembler.py. Used as a fallback when the live backend
+(frontend/services/client.py) is unreachable, so the UI can still render.
 """
 
 from __future__ import annotations
@@ -23,21 +25,25 @@ def mock_invoice() -> dict:
 def mock_esg_profile() -> dict:
     return {
         "sme_id": "sme-001",
-        "procurement_sustainability_score": 0.64,
+        "procurement_sustainability_score": 64.0,
         "green_credit_score": 71.0,
         "dimension_scores": {
-            "climate_mitigation": 0.72,
-            "resource_efficiency": 0.58,
-            "pollution_prevention": 0.40,
+            "Climate Change Mitigation": 0.58,
+            "Climate Change Adaptation": 0.0,
+            "Water & Marine Resources": 0.0,
+            "Circular Economy": 0.06,
+            "Pollution Prevention & Control": 0.0,
+            "Biodiversity & Ecosystems": 0.0,
         },
         "classified_line_items": [
             {
                 "supplier": "EcoSupply GmbH",
                 "description": "Solar panel installation",
                 "quantity": 10,
+                "unit": None,
                 "amount": 12000.00,
                 "taxonomy_category": "Solar energy generation",
-                "taxonomy_objective": "climate_change_mitigation",
+                "taxonomy_objective": "Climate Change Mitigation",
                 "similarity_score": 0.91,
                 "rationale": "Installation of solar panels directly enables renewable energy generation, aligned with EU Taxonomy climate change mitigation objective.",
             },
@@ -45,9 +51,10 @@ def mock_esg_profile() -> dict:
                 "supplier": "LightTech BV",
                 "description": "LED lighting retrofit",
                 "quantity": 50,
+                "unit": None,
                 "amount": 3500.00,
                 "taxonomy_category": "Energy efficiency in buildings",
-                "taxonomy_objective": "climate_change_mitigation",
+                "taxonomy_objective": "Climate Change Mitigation",
                 "similarity_score": 0.83,
                 "rationale": "LED retrofit reduces building energy consumption, qualifying under EU Taxonomy energy efficiency activities.",
             },
@@ -55,6 +62,7 @@ def mock_esg_profile() -> dict:
                 "supplier": "PowerRent GmbH",
                 "description": "Diesel generator rental",
                 "quantity": 1,
+                "unit": None,
                 "amount": 850.00,
                 "taxonomy_category": None,
                 "taxonomy_objective": None,
@@ -63,8 +71,13 @@ def mock_esg_profile() -> dict:
             },
         ],
         "sector_benchmark": {
-            "sector": "Manufacturing",
-            "median_green_credit_score": 55.0,
+            "sector": "C25",
+            "median_green_credit_score": 15.0,
+        },
+        "data_quality": {
+            "confidence_pct": 42.0,
+            "tier": "Low",
+            "basis": "Based on 3 classified invoice line items (demo mock data)",
         },
     }
 
@@ -76,10 +89,11 @@ def mock_passport() -> dict:
         "company_name": "Müller & Partners GmbH",
         "esg_profile": mock_esg_profile(),
         "financial_health": {
-            "revenue_eur": 4_200_000,
-            "debt_ratio": 0.38,
-            "payment_days": 32,
+            "total_spend_eur": 16_350.00,
+            "classified_green_spend_eur": 15_500.00,
+            "green_spend_share": 0.9480,
         },
+        "requested_amount_eur": 50_000.00,
         "created_at": "2024-03-15T14:30:00Z",
         "shared": False,
     }

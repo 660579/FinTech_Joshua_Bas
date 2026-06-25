@@ -24,4 +24,5 @@ async def record_decision(body: LenderDecision) -> dict:
         "status": "recorded",
         "passport_id": body.passport_id,
         "decision": body.decision,
+        "approved_amount_eur": body.approved_amount_eur,
     }

@@ -45,7 +45,7 @@ def test_stub_returns_string(monkeypatch):
 
 
 # ---------------------------------------------------------------------------
-# Prompt construction — the core RAG contract
+# Prompt construction: the core RAG contract
 # ---------------------------------------------------------------------------
 
 def test_prompt_contains_category_definition(monkeypatch):

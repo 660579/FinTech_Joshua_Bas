@@ -14,14 +14,14 @@ import csv
 import random
 from pathlib import Path
 
-# Seed for reproducibility — never change without team agreement.
+# Seed for reproducibility. Never change without team agreement.
 RANDOM_SEED = 42
 
 OUTPUT_PATH = Path("backend/data/synthetic/demo_invoices.csv")
 
 SME_ID = "sme-nace-c25-demo"
 
-# Supplier name pools — randomised, not the line item descriptions.
+# Supplier name pools: randomised, not the line item descriptions.
 ENERGY_SUPPLIERS = ["SolarTech NL BV", "GreenPower Installations GmbH", "EcoVolt Europe SA"]
 FUEL_SUPPLIERS = ["Total Energies NL", "Shell Business Fuels BV", "Energie Depot Rotterdam"]
 STEEL_SUPPLIERS = ["ArcelorMittal Recycled Materials", "European Steel Scrap BV", "MetalloRec GmbH"]
@@ -33,43 +33,43 @@ WATER_SUPPLIERS = ["Veolia Water Technologies", "Pentair Industrial Solutions BV
 EV_SUPPLIERS = ["EVBox Charging Solutions", "Allego Business BV"]
 
 # Fixed invoice content: (supplier_pool, description, quantity, unit, amount)
-# Descriptions are specific and intentional — not randomised — so embeddings
+# Descriptions are specific and intentional (not randomised) so embeddings
 # can reliably distinguish green / non-green / ambiguous items.
 INVOICE_LINE_ITEMS: list[tuple[list[str], str, float, str, float]] = [
-    # INV-2025-001 — energy upgrade (clearly green CapEx)
+    # INV-2025-001: energy upgrade (clearly green CapEx)
     (ENERGY_SUPPLIERS, "Rooftop solar panel installation 4 kWp with inverter", 1.0, "installation", 12400.00),
     (ENERGY_SUPPLIERS, "LED high-bay lighting retrofit for production hall (40 units)", 40.0, "unit", 3200.00),
-    # INV-2025-002 — EV charging (clearly green CapEx)
+    # INV-2025-002: EV charging (clearly green CapEx)
     (EV_SUPPLIERS, "EV charging station installation 22 kW Type 2 AC (2 points)", 2.0, "unit", 4800.00),
     (EV_SUPPLIERS, "Electrical grid connection upgrade for EV charging infrastructure", 1.0, "installation", 1850.00),
-    # INV-2025-003 — recycled raw material (clearly green OpEx)
+    # INV-2025-003: recycled raw material (clearly green OpEx)
     (STEEL_SUPPLIERS, "Recycled steel sheet S235 2 mm thickness 500 kg", 500.0, "kg", 620.00),
     (STEEL_SUPPLIERS, "Recycled aluminium extrusion alloy 6063 200 kg", 200.0, "kg", 490.00),
-    # INV-2025-004 — diesel and fossil fuels (clearly non-green OpEx)
+    # INV-2025-004: diesel and fossil fuels (clearly non-green OpEx)
     (FUEL_SUPPLIERS, "Diesel fuel B7 500 L for forklift fleet", 500.0, "L", 780.00),
     (FUEL_SUPPLIERS, "LPG propane 250 kg for overhead crane heating system", 250.0, "kg", 310.00),
-    # INV-2025-005 — coal-fired furnace (clearly non-green)
+    # INV-2025-005: coal-fired furnace (clearly non-green)
     (FURNACE_SUPPLIERS, "Coal-fired heat treatment furnace annual service and calibration", 1.0, "service", 2200.00),
     (FURNACE_SUPPLIERS, "Furnace refractory lining replacement (coal-fired batch annealing)", 1.0, "service", 5600.00),
-    # INV-2025-006 — CNC machine servicing (ambiguous / neutral CapEx maintenance)
+    # INV-2025-006: CNC machine servicing (ambiguous / neutral CapEx maintenance)
     (MACHINE_SUPPLIERS, "CNC milling machine scheduled preventive maintenance (4 000 h service)", 1.0, "service", 1450.00),
     (MACHINE_SUPPLIERS, "Carbide end-mill cutting tool set replacement 20-piece", 20.0, "unit", 860.00),
-    # INV-2025-007 — office consumables (ambiguous / neutral OpEx)
+    # INV-2025-007: office consumables (ambiguous / neutral OpEx)
     (OFFICE_SUPPLIERS, "Office paper A4 80 g/m² 5 reams", 5.0, "ream", 45.00),
     (OFFICE_SUPPLIERS, "General office supplies (pens, folders, toner cartridges)", 1.0, "lot", 210.00),
-    # INV-2025-008 — logistics and freight (ambiguous)
-    (LOGISTICS_SUPPLIERS, "Road freight transport services — outbound finished goods 3 pallets", 3.0, "pallet", 390.00),
-    (LOGISTICS_SUPPLIERS, "Inbound raw material transport — steel coil delivery 2 t", 2.0, "tonne", 280.00),
-    # INV-2025-009 — water treatment (potentially green — circular economy / pollution prevention)
+    # INV-2025-008: logistics and freight (ambiguous)
+    (LOGISTICS_SUPPLIERS, "Road freight transport services, outbound finished goods 3 pallets", 3.0, "pallet", 390.00),
+    (LOGISTICS_SUPPLIERS, "Inbound raw material transport, steel coil delivery 2 t", 2.0, "tonne", 280.00),
+    # INV-2025-009: water treatment (potentially green, circular economy / pollution prevention)
     (WATER_SUPPLIERS, "Industrial wastewater treatment system filter media replacement", 1.0, "service", 1100.00),
     (WATER_SUPPLIERS, "Cooling water treatment chemical dosing pump installation", 1.0, "installation", 2300.00),
-    # INV-2025-010 — mixed green + neutral CapEx
-    (ENERGY_SUPPLIERS, "Building insulation upgrade — mineral wool 150 mm production hall roof", 320.0, "m2", 9600.00),
+    # INV-2025-010: mixed green + neutral CapEx
+    (ENERGY_SUPPLIERS, "Building insulation upgrade, mineral wool 150 mm production hall roof", 320.0, "m2", 9600.00),
     (MACHINE_SUPPLIERS, "Variable-frequency drive (VFD) retrofit for main compressor motor 15 kW", 1.0, "unit", 3400.00),
-    # INV-2025-011 — packaging and consumables (neutral OpEx)
+    # INV-2025-011: packaging and consumables (neutral OpEx)
     (LOGISTICS_SUPPLIERS, "Stretch film pallet wrapping consumables 6 rolls", 6.0, "roll", 180.00),
-    (OFFICE_SUPPLIERS, "Safety PPE kit — hard hats, gloves, safety glasses (10 sets)", 10.0, "set", 520.00),
-    # INV-2025-012 — mixed green / non-green maintenance
+    (OFFICE_SUPPLIERS, "Safety PPE kit: hard hats, gloves, safety glasses (10 sets)", 10.0, "set", 520.00),
+    # INV-2025-012: mixed green / non-green maintenance
     (FURNACE_SUPPLIERS, "Natural gas connection inspection and burner efficiency tuning", 1.0, "service", 750.00),
     (WATER_SUPPLIERS, "Rainwater harvesting tank installation 5 000 L with pump", 1.0, "installation", 4100.00),
 ]

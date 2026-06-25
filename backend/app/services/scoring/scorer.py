@@ -57,7 +57,7 @@ def score(
     }
 
     # Coverage: share of total spend that cleared the classification threshold at all.
-    # Secondary signal — a high fraction of classifiable spend is necessary but not sufficient.
+    # Secondary signal: a high fraction of classifiable spend is necessary but not sufficient.
     coverage = sum(item.amount for item in classified_items) / total_spend
 
     # Alignment: taxonomy-eligible spend weighted by classification confidence, normalised by

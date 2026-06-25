@@ -27,7 +27,7 @@ def classify_line_items(line_items: list[LineItem]) -> list[ClassifiedLineItem]:
     """Orchestrate embed → match → RAG for a batch of line items.
 
     All descriptions are embedded in a single model call for efficiency.
-    RAG calls are dispatched concurrently via ThreadPoolExecutor — only for
+    RAG calls are dispatched concurrently via ThreadPoolExecutor, only for
     items that clear the similarity threshold. Unclassified items are returned
     with taxonomy fields left as None.
     """

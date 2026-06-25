@@ -3,7 +3,7 @@
 CSV format is flat (one row per line item); rows sharing an invoice_id are
 grouped into a single Invoice with a list of LineItems.
 
-JSON format mirrors the Invoice model directly — a list of Invoice objects.
+JSON format mirrors the Invoice model directly: a list of Invoice objects.
 """
 from __future__ import annotations
 

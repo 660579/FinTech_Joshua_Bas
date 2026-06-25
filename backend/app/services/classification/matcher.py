@@ -25,7 +25,7 @@ def cosine_match(
     """Return top_k category matches above the similarity threshold.
 
     Both query_embedding and index rows are pre-normalised (unit length), so the
-    dot product equals cosine similarity — no explicit division needed.
+    dot product equals cosine similarity; no explicit division needed.
 
     Returns an empty list when the best score is below MIN_SIMILARITY_SCORE,
     leaving the line item unclassified rather than forcing a weak match.

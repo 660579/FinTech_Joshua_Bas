@@ -10,11 +10,15 @@ dependencies = [
     "pydantic",
     "python-dotenv",
     "httpx",
+    "groq",
 ]
 
 [project.optional-dependencies]
 dev = ["pytest", "httpx"]
 
+[tool.setuptools.packages.find]
+include = ["backend*"]
+
 [build-system]
 requires = ["setuptools"]
-build-backend = "setuptools.backends.legacy:build"
+build-backend = "setuptools.build_meta"

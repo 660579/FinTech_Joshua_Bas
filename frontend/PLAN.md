@@ -6,19 +6,19 @@ The frontend delivers GreenLedger's two-sided flow. It is the part the lecture f
 
 ## Build mock-first
 
-Do **not** wait for the backend. Build every screen against a local `mock/` module that returns data shaped exactly like the agreed pydantic schemas (Invoice, ESGProfile, Passport). When the backend endpoints exist, swap the mock calls for real API calls — the screens don't change. This is what lets the frontend and backend be built in parallel.
+Do **not** wait for the backend. Build every screen against a local `mock/` module that returns data shaped exactly like the agreed pydantic schemas (Invoice, ESGProfile, Passport). When the backend endpoints exist, swap the mock calls for real API calls. The screens don't change. This is what lets the frontend and backend be built in parallel.
 
 ## Screens
 
 ### SME side
 
-1. **Upload / connect** — upload synthetic invoice data (CSV/JSON), or a mock "connect bank / accounting" button. A button triggers the ESG scan.
-2. **ESG dashboard** — show the scan result: spend classified by EU Taxonomy category, the sustainability dimensions, the procurement sustainability score, and the headline **Green Credit Score** with a sector benchmark.
-3. **Financing Passport** — the assembled lender-ready profile (ESG overview + basic financial-health metrics + Green Credit Score), with a **Share** action that produces a passport ID / link.
+1. **Upload / connect**: upload synthetic invoice data (CSV/JSON), or a mock "connect bank / accounting" button. A button triggers the ESG scan.
+2. **ESG dashboard**: show the scan result: spend classified by EU Taxonomy category, the sustainability dimensions, the procurement sustainability score, and the headline **Green Credit Score** with a sector benchmark.
+3. **Financing Passport**: the assembled lender-ready profile (ESG overview + basic financial-health metrics + Green Credit Score), with a **Share** action that produces a passport ID / link.
 
 ### Lender side
 
-4. **Lender view** — open a shared passport by ID, review the borrower profile from the lender's perspective, and capture a **decision** (approve / decline + indicative terms). This closes the loop.
+4. **Lender view**: open a shared passport by ID, review the borrower profile from the lender's perspective, and capture a **decision** (approve / decline + indicative terms). This closes the loop.
 
 ## File layout
 
@@ -44,6 +44,6 @@ frontend/
 
 ## Notes
 
-- All data is synthetic — no real bank/PSD2/accounting connections.
+- All data is synthetic; no real bank/PSD2/accounting connections.
 - Keep UI logic in pages/components; no business logic in the frontend (it calls the backend, which calls the services).
 - UX is graded: minimal clicks, clear labels, no ESG jargon dumped on the user.

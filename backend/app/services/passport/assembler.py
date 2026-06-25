@@ -8,11 +8,13 @@ from backend.app.models.schemas import ESGProfile, Passport
 
 # Module-local store used by get_passport() and the unit tests.
 # The route layer (api/store.passport_store) holds the same passports for
-# cross-request access via HTTP — both are populated on every assemble_passport() call.
+# cross-request access via HTTP; both are populated on every assemble_passport() call.
 _passport_store: dict[str, Passport] = {}
 
 
-def assemble_passport(esg_profile: ESGProfile, sme_id: str) -> Passport:
+def assemble_passport(
+    esg_profile: ESGProfile, sme_id: str, requested_amount_eur: float | None = None
+) -> Passport:
     classified_spend = sum(item.amount for item in esg_profile.classified_line_items)
 
     # Invert the scorer's alignment formula to recover total_spend so we can express
@@ -39,6 +41,7 @@ def assemble_passport(esg_profile: ESGProfile, sme_id: str) -> Passport:
         company_name=sme_id,  # frontend supplies the display name; sme_id is the stable key
         esg_profile=esg_profile,
         financial_health=financial_health,
+        requested_amount_eur=requested_amount_eur,
         created_at=datetime.now(timezone.utc).isoformat(),
     )
     _passport_store[passport.passport_id] = passport

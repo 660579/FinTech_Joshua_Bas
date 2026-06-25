@@ -1,7 +1,7 @@
 """Sentence-transformer embedding wrapper with lazy model loading.
 
 sentence_transformers is imported inside load_model() so that modules which
-import this file don't pay the model-load cost at import time — only when the
+import this file don't pay the model-load cost at import time, only when the
 first embed_texts() call is made.
 """
 from __future__ import annotations
@@ -22,7 +22,7 @@ def load_model(model_name: str = "all-MiniLM-L6-v2"):
 def embed_texts(texts: list[str]) -> np.ndarray:
     """Embed texts and return L2-normalised (N, D) float32 array.
 
-    Pre-normalising means dot product == cosine similarity — no division needed at match time.
+    Pre-normalising means dot product == cosine similarity; no division needed at match time.
     """
     model = load_model()
     embeddings = model.encode(texts, convert_to_numpy=True, normalize_embeddings=True)
