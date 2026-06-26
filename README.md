@@ -31,7 +31,7 @@ invoice data → ingestion → classification (embed + match + RAG) → scoring 
                                             SME dashboard ◄────────────┘────────► Lender view
 ```
 
-- **Backend:** FastAPI (Python) the pipeline above, exposed via SME and lender endpoints.
+- **Backend:** FastAPI (Python) running the pipeline above, exposed via SME and lender endpoints.
 - **Frontend:** Streamlit SME dashboard and lender view.
 - **Classification:** `sentence-transformers` embeddings + plain NumPy cosine-similarity search over precomputed EU Taxonomy category embeddings.
 
@@ -85,7 +85,7 @@ CLAUDE.md   instructions for the AI coding agent
 
 ## Built with AI agents
 
-Developed in VS Code using **Claude Code**. Agent behaviour and project conventions are defined in `CLAUDE.md` and `.claude/`. See the video presentation for how we orchestrated the agent and which suggestions we accepted or rejected.
+Developed in VS Code using **Claude Code**. Agent behaviour and project conventions are defined in `CLAUDE.md`. See the video presentation for how we orchestrated the agent and which suggestions we accepted or rejected.
 
 ## License
 
